@@ -1,28 +1,47 @@
-# Angular specific
-/dist/
-/out-tsc/
-/tmp/
-/coverage/
-/e2e/test-output/
-/.angular/
-.angular/
+# Root-level Git ignore for the monorepo
 
-# Node modules and dependency files
-/node_modules/
-/package-lock.json
-/yarn.lock
+# IDE / editor
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Java / Spring
+**/target/
+**/build/
+**/.classpath
+**/.project
+**/.settings/
+**/.factorypath
+**/.springBeans
+**/.sts4-cache
+**/.apt_generated
+**/bin/
+
+# Node / Angular
+**/node_modules/
+**/dist/
+**/.angular/
+**/.ng/
+**/coverage/
+**/tmp/
+**/out-tsc/
+**/*.tsbuildinfo
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
 
 # Environment files
-/.env
+.env
+.env.*
 
-# Angular CLI and build artefacts
-/.angular-cli.json
-/.ng/
+# Docker / local databases
+*.local
+*.sqlite
+*.db
 
-# TypeScript cache
-*.tsbuildinfo
-
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*

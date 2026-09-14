@@ -1,0 +1,16 @@
+{
+  "name": "planeja-app",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "planeja-front"
+  ],
+  "scripts": {
+    "dev:api": "mvn -f planeja-api spring-boot:run",
+    "dev:front": "npm --prefix planeja-front run start",
+    "build:api": "mvn -f planeja-api package",
+    "build:front": "npm --prefix planeja-front run build",
+    "test:api": "mvn -f planeja-api test",
+    "test:front": "npm --prefix planeja-front run test -- --watch=false"
+  }
+}
