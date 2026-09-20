@@ -1,6 +1,6 @@
 package com.ojuara.planeja.dominio.cartao.model;
 
-import com.ojuara.planeja.common.enums.BandeiraCartaoEnum;
+import com.ojuara.planeja.dominio.cartao.enums.BandeiraCartaoEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

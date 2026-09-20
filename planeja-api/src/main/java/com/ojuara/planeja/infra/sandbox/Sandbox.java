@@ -1,6 +1,6 @@
 package com.ojuara.planeja.infra.sandbox;
 
-import com.ojuara.planeja.common.enums.BandeiraCartaoEnum;
+import com.ojuara.planeja.dominio.cartao.enums.BandeiraCartaoEnum;
 import com.ojuara.planeja.dominio.cartao.CartaoRepository;
 import com.ojuara.planeja.dominio.cartao.model.CartaoEntity;
 import org.springframework.beans.factory.annotation.Autowired;

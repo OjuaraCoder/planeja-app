@@ -4,6 +4,10 @@ import com.ojuara.planeja.common.validation.CampoInvalido;
 
 import java.util.List;
 
+
+/**
+ *
+ */
 public class ValidationException extends RuntimeException {
 
     private List<CampoInvalido> camposInvalidos;
@@ -13,4 +17,8 @@ public class ValidationException extends RuntimeException {
         this.camposInvalidos = camposInvalidos;
     }
 
+
+    public List<CampoInvalido> getCamposInvalidos() {
+        return camposInvalidos;
+    }
 }
