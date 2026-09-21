@@ -23,7 +23,7 @@ public class CartaoController {
 
 
     /**
-     * 
+     * Método utilizado para criar um cartão
      * @param form
      * @return
      */
@@ -34,7 +34,7 @@ public class CartaoController {
     }
 
     /**
-     *
+     * Método utilizado para obter o detalhe de um cartão
      * @param id
      * @return
      */
@@ -45,7 +45,7 @@ public class CartaoController {
     }
 
     /**
-     *
+     * Método utilizado para atualizar um cartão
      * @param id
      * @param formAtualizacao
      * @return
