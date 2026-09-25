@@ -10,10 +10,10 @@ import java.util.List;
  */
 public class ValidationException extends RuntimeException {
 
-    private List<CampoInvalido> camposInvalidos;
+    private final List<CampoInvalido> camposInvalidos;
 
     public ValidationException(List<CampoInvalido> camposInvalidos) {
-        super();
+        super("Erro de validação");
         this.camposInvalidos = camposInvalidos;
     }
 

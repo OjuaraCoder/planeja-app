@@ -56,4 +56,11 @@ public class CartaoController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> removerCartao(@PathVariable UUID id){
+        service.removerCartao(id);
+        return ResponseEntity.noContent().build();
+
+    }
+
 }

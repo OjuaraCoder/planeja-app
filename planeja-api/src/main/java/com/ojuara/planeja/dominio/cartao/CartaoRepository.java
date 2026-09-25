@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Repositório para gerenciar entidades de cartão.
+ */
 public interface CartaoRepository extends JpaRepository<CartaoEntity, UUID> {
 
     Optional<CartaoEntity> findByNome(String nome);

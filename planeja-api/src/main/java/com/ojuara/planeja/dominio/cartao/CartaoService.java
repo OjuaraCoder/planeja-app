@@ -2,7 +2,7 @@ package com.ojuara.planeja.dominio.cartao;
 
 
 import com.ojuara.planeja.common.exceptions.ValidationException;
-import com.ojuara.planeja.common.validation.RegistroNaoEncontradoException;
+import com.ojuara.planeja.common.exceptions.RegistroNaoEncontradoException;
 import com.ojuara.planeja.dominio.cartao.dto.CartaoDetalheDto;
 import com.ojuara.planeja.dominio.cartao.dto.CartaoFormDto;
 import com.ojuara.planeja.dominio.cartao.mapper.CartaoMapper;
@@ -11,7 +11,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
 
 import java.util.UUID;
 
@@ -41,15 +40,16 @@ public class CartaoService {
 
     }
 
+
     public CartaoDetalheDto obterDetalhe(UUID id){
         return cartaoRepository.findById(id)
                 .map(cartaoMapper::toDetalhe)
-                .orElseThrow(() -> new RegistroNaoEncontradoException());
+                .orElseThrow(RegistroNaoEncontradoException::new);
     }
 
     @Transactional
     public void atualizarCartao(UUID id, @Valid CartaoFormDto formAtualizacao) {
-        var entity = cartaoRepository.findById(id).orElseThrow(() -> new RegistroNaoEncontradoException());
+        var entity = cartaoRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
         var result = cartaoValidator.validar(formAtualizacao, id);
 
         if(result.isInvalido()){
@@ -58,5 +58,10 @@ public class CartaoService {
 
         cartaoMapper.update(entity, formAtualizacao);
 
+    }
+
+    public void removerCartao(UUID id) {
+        var entity = cartaoRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
+        cartaoRepository.delete(entity);
     }
 }
