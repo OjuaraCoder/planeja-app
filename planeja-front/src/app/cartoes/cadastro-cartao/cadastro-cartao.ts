@@ -4,6 +4,7 @@ import { CartaoService } from '../cartao-service';
 import { DadosCartaoForm, DetalhesCartao } from '../dados-cartao';
 import { ValidationErrorResponse } from '../../common/validation/validation-error-model';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 interface CadastroCartaoForm{
   nome: FormControl<string>;
@@ -18,8 +19,10 @@ interface CadastroCartaoForm{
   styleUrl: './cadastro-cartao.scss',
 })
 export class CadastroCartao implements OnInit {
+  service: CartaoService = inject(CartaoService);
+  toast: ToastrService = inject(ToastrService);
+
   form!: FormGroup<CadastroCartaoForm>;
-  service = inject(CartaoService);
 
   ngOnInit(): void {
     this.form = new FormGroup<CadastroCartaoForm>({
@@ -29,8 +32,9 @@ export class CadastroCartao implements OnInit {
   }
 
   isFormInvalid(): boolean {
-    if(this.form.invalid) {
+    if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.toast.warning('Erro Lógico');
       return true;
     }
     return false;
@@ -43,31 +47,33 @@ export class CadastroCartao implements OnInit {
 
     const dadosCartao: DadosCartaoForm = this.form.value as DadosCartaoForm;
     this.service.criarCartao(dadosCartao).subscribe({
-      next: (response:DetalhesCartao) => {
-        console.log('resposta do servidor: ', response);
+      next: (response: DetalhesCartao) => {
+        console.log('resposta: ', response)
+        this.toast.success('Cartão cadastrado/atualizado com sucesso!');
       },
-      error: (error:any) => this.onApiError(error)
+      error: (error: any) => {
+        this.onApiError(error)
+      }
     });
-
   }
 
-  private aplicarErrorValidacao(error: ValidationErrorResponse){
-    error.camposInvalidos.forEach(invalido => {
-        console.log('campo invalido', invalido);
-        const control = this.form.get(invalido.campo);
+  private aplicarErrorValidacao(error: ValidationErrorResponse) {
+    error.camposInvalidos.forEach((invalido) => {
+      console.log('campo invalido', invalido);
+      const control = this.form.get(invalido.campo);
       console.log('control', control);
-        if(control){
-          control.setErrors({ apiError: invalido.mensagem })
-          control.markAsTouched();
-        }
+      if (control) {
+        control.setErrors({ apiError: invalido.mensagem });
+        control.markAsTouched();
+      }
     });
   }
 
-  private onApiError(response: any){
+  private onApiError(response: any) {
     if (response.status === 422) {
       this.aplicarErrorValidacao(response.error);
+      this.toast.error('Erro de validação verificque');
       return;
     }
-
   }
 }

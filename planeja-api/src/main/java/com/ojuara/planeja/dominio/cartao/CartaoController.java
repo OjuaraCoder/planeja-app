@@ -5,6 +5,8 @@ import com.ojuara.planeja.dominio.cartao.dto.CartaoDetalheDto;
 import com.ojuara.planeja.dominio.cartao.dto.CartaoFormDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,6 @@ public class CartaoController {
 
     @Autowired
     private CartaoService service;
-
 
     /**
      * Método utilizado para criar um cartão
@@ -46,6 +47,22 @@ public class CartaoController {
     }
 
     /**
+     * Método utilizado para listar todos os cartões de forma paginada
+     * @param page
+     * @param size
+     * @return Página de detalhes dos cartões
+     */
+    @GetMapping
+    public Page<CartaoDetalheDto> listar(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size){
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return service.listarCartoes(pageRequest);
+    }
+
+
+    /**
      * Método utilizado para atualizar um cartão
      * @param id
      * @param formAtualizacao
@@ -57,6 +74,11 @@ public class CartaoController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Método utilizado para remover um cartão
+     * @param id
+     * @return
+     */
     @DeleteMapping("{id}")
     public ResponseEntity<Void> removerCartao(@PathVariable UUID id){
         service.removerCartao(id);

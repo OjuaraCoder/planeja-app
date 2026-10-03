@@ -14,6 +14,9 @@ public class CartaoValidator {
     @Autowired
     private CartaoRepository repository;
 
+    /**
+     *
+     */
     public ValidationResult validar(CartaoFormDto cartaoFormDto, UUID idCartao) {
         var result = ValidationResult.novo();
 

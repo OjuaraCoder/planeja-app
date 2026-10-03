@@ -14,8 +14,22 @@ import java.util.UUID;
  */
 public interface CartaoRepository extends JpaRepository<CartaoEntity, UUID> {
 
+    /**
+     * Busca um cartão pelo nome.
+     *
+     * @param nome nome do cartão a buscar
+     * @return cartão encontrado, ou vazio caso não exista cartão com esse nome
+     */
     Optional<CartaoEntity> findByNome(String nome);
 
+    /**
+     * Busca cartões com o nome informado, excluindo da busca o cartão identificado por {@code id}.
+     * Quando {@code id} é nulo, nenhum cartão é excluído.
+     *
+     * @param nome nome dos cartões a buscar
+     * @param id identificador do cartão a excluir da busca, ou {@code null}
+     * @return lista dos cartões que correspondem aos critérios
+     */
     @Query("""
         select c
             from CartaoEntity c 
