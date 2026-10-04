@@ -215,6 +215,10 @@ body {
     font-size: 14px;
 }
 
+.icon-btn + .icon-btn {
+    margin-left: 6px;
+}
+
 .icon-btn i {
     color: #555;
 }
