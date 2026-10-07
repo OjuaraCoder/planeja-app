@@ -1,6 +1,8 @@
 package com.ojuara.planeja.dominio.categoria;
 
 import com.ojuara.planeja.dominio.categoria.model.CategoriaEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +20,6 @@ public interface CategoriaRepository extends JpaRepository<CategoriaEntity, Long
     """)
     List<CategoriaEntity> findByNomeandId(@Param("nome") String nome, @Param("id") Long id);
 
+
+    Page<CategoriaEntity> listByAtivoTrue(PageRequest pageRequest);
 }

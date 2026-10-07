@@ -47,6 +47,12 @@ public class CategoriaService {
                 .map(categoriaMapper::toDetalheDto);
     }
 
+    public Page<CategoriaDetalheDto> listarCategoriasAtivas(PageRequest pageRequest){
+        return categoriaRepository
+                .listByAtivoTrue(pageRequest)
+                .map(categoriaMapper::toDetalheDto);
+    }
+
     public void mudarStatusCategoria(Long id, boolean ativo) {
         CategoriaEntity categoria = categoriaRepository.findById(id)
                 .orElseThrow(RegistroNaoEncontradoException::new);
