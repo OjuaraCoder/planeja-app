@@ -21,7 +21,7 @@ public interface CartaoMapper {
     /**
      * Converte uma entidade CartaoEntity para um CartaoDetalheDto.
      */
-    CartaoDetalheDto toDetalhe(CartaoEntity entity);
+    CartaoDetalheDto toDetalheDto(CartaoEntity entity);
 
     /**
      * Atualiza uma entidade CartaoEntity existente com os dados de um CartaoFormDto.
