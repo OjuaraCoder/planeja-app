@@ -5,7 +5,7 @@ import { DadosCartaoForm, DetalhesCartao } from '../dados-cartao';
 import { ValidationErrorResponse } from '../../common/validation/validation-error-model';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 interface CadastroCartaoForm{
@@ -21,13 +21,12 @@ interface CadastroCartaoForm{
   styleUrl: './cadastro-cartao.scss',
 })
 export class CadastroCartao implements OnInit {
-
   service: CartaoService = inject(CartaoService);
   rotaAtiva: ActivatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
   toast: ToastrService = inject(ToastrService);
   form!: FormGroup<CadastroCartaoForm>;
   idCartaoEdicao?: string | null = null;
-
 
   ngOnInit(): void {
     this.form = new FormGroup<CadastroCartaoForm>({
@@ -36,26 +35,24 @@ export class CadastroCartao implements OnInit {
     });
 
     this.carregarDadosEdicao();
-
   }
 
   carregarDadosEdicao() {
     this.idCartaoEdicao = this.rotaAtiva.snapshot.queryParamMap.get('id') ?? null;
 
-    if(!this.idCartaoEdicao){
+    if (!this.idCartaoEdicao) {
       return;
     }
 
-    this.service.obterPorId(this.idCartaoEdicao)
-      .subscribe({
-        next:(cartao) => {
-          this.form.patchValue({
-            nome: cartao.nome,
-            bandeira: cartao.bandeira,
-          })
-        },
-        error: () => this.toast.error('Erro ao carregar dados do cartão')
-      })
+    this.service.obterPorId(this.idCartaoEdicao).subscribe({
+      next: (cartao) => {
+        this.form.patchValue({
+          nome: cartao.nome,
+          bandeira: cartao.bandeira,
+        });
+      },
+      error: () => this.toast.error('Erro ao carregar dados do cartão'),
+    });
   }
 
   isFormInvalid(): boolean {
@@ -81,11 +78,18 @@ export class CadastroCartao implements OnInit {
     requisicao.subscribe({
       next: (response) => {
         this.toast.success('Cartão cadastrado/atualizado com sucesso!');
+        this.form.reset();
+        this.idCartaoEdicao = null;
       },
       error: (error: any) => {
         this.onApiError(error);
       },
     });
+  }
+
+  cancelar() {
+    this.form.reset();
+    this.router.navigate(['/lista-cartoes']);
   }
 
   private aplicarErrorValidacao(error: ValidationErrorResponse) {

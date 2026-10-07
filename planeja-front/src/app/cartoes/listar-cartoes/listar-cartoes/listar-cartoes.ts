@@ -4,12 +4,12 @@ import { PageResult } from '../../../common/pagination/page-result';
 import { DetalhesCartao } from '../../dados-cartao';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-listar-cartoes',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './listar-cartoes.html',
   styleUrl: './listar-cartoes.scss',
 })

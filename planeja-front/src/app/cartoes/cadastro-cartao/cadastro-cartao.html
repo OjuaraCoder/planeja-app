@@ -50,7 +50,11 @@
 
       <div class="form-actions">
         <button type="submit" class="btn-primary">{{idCartaoEdicao ? 'Atualizar' : 'Cadastrar'}}</button>
-        <button type="button" class="btn-secondary">Cancelar</button>
+        <button type="button"
+                class="btn-secondary"
+                (click)="cancelar()">
+          Cancelar
+        </button>
       </div>
 
     </form>

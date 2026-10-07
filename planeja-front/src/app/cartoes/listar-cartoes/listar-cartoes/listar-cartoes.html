@@ -10,6 +10,14 @@
 
 <main class="content">
   <div class="card-full">
+
+    <button class="btn-secondary"
+            type="button"
+            [routerLink]="['/cadastro-cartao']"
+    >
+      <i class="fa-solid fa-plus"></i>
+      Novo Cartão
+    </button>
     <div class="table-card">
       @if(listagem$ | async; as listagem){
         <table class="datatable">
