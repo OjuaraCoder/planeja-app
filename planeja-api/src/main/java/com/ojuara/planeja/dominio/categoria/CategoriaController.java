@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/categorias")
 @CrossOrigin("*")
@@ -26,10 +28,17 @@ public class CategoriaController {
     }
 
     @GetMapping
-    public Page<CategoriaDetalheDto> listarCategorias(@RequestParam(defaultValue = "0") int page,
-                                                      @RequestParam(defaultValue = "10") int size) {
+    public Page<CategoriaDetalheDto> listarCategorias(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                      @RequestParam(value = "size", defaultValue = "10") int size){
+
         var pageResult = PageRequest.of(page, size);
         return service.listarCategorias(pageResult);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<CategoriaDetalheDto> obterCategoria(@PathVariable("id") Long id){
+        var result = service.obterCategoria(id);
+        return ResponseEntity.ok(result);
     }
 
     @PatchMapping("/{id}/status")

@@ -6,8 +6,6 @@ import com.ojuara.planeja.dominio.categoria.dto.CategoriaFormDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 public class CategoriaValidator {
 
@@ -16,10 +14,12 @@ public class CategoriaValidator {
 
     public ValidationResult validar(CategoriaFormDto categoriaFormDto, Long idCategoria) {
         var result = ValidationResult.novo();
+        var existeCategoriaCadastrada = repository.existsByNome(categoriaFormDto.nome());
 
-        if(!repository.findByNomeandId(categoriaFormDto.nome(), idCategoria).isEmpty()) {
-            result.add(new CampoInvalido("nome", "Já cadastrado."));
+        if(existeCategoriaCadastrada){
+            result.add(new CampoInvalido("nome", "Categoria já cadastrada."));
         }
+
         return result;
     }
 

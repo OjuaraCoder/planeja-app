@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CategoriaService {
@@ -47,12 +46,6 @@ public class CategoriaService {
                 .map(categoriaMapper::toDetalheDto);
     }
 
-    public Page<CategoriaDetalheDto> listarCategoriasAtivas(PageRequest pageRequest){
-        return categoriaRepository
-                .listByAtivoTrue(pageRequest)
-                .map(categoriaMapper::toDetalheDto);
-    }
-
     public void mudarStatusCategoria(Long id, boolean ativo) {
         CategoriaEntity categoria = categoriaRepository.findById(id)
                 .orElseThrow(RegistroNaoEncontradoException::new);
@@ -61,4 +54,10 @@ public class CategoriaService {
         categoriaRepository.save(categoria);
     }
 
+    public CategoriaDetalheDto obterCategoria(Long id) {
+        return categoriaRepository.findById(id)
+                .map(categoriaMapper::toDetalheDto)
+                .orElseThrow(RegistroNaoEncontradoException::new);
+
+    }
 }
