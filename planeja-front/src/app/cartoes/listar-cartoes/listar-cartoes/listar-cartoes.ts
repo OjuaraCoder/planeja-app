@@ -6,10 +6,11 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Header } from '../../../common/components/header/header';
 
 @Component({
   selector: 'app-listar-cartoes',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, Header],
   templateUrl: './listar-cartoes.html',
   styleUrl: './listar-cartoes.scss',
 })
