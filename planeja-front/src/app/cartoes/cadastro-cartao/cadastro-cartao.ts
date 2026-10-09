@@ -5,6 +5,9 @@ import { DadosCartaoForm, DetalhesCartao } from '../dados-cartao';
 import { ValidationErrorResponse } from '../../common/validation/validation-error-model';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Header } from '../../common/components/header/header';
 
 interface CadastroCartaoForm{
   nome: FormControl<string>;
@@ -14,20 +17,42 @@ interface CadastroCartaoForm{
 
 @Component({
   selector: 'app-cadastro-cartao',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, Header],
   templateUrl: './cadastro-cartao.html',
   styleUrl: './cadastro-cartao.scss',
 })
 export class CadastroCartao implements OnInit {
   service: CartaoService = inject(CartaoService);
+  rotaAtiva: ActivatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
   toast: ToastrService = inject(ToastrService);
-
   form!: FormGroup<CadastroCartaoForm>;
+  idCartaoEdicao?: string | null = null;
 
   ngOnInit(): void {
     this.form = new FormGroup<CadastroCartaoForm>({
       nome: new FormControl('', { nonNullable: true, validators: Validators.required }),
       bandeira: new FormControl('', { nonNullable: true, validators: Validators.required }),
+    });
+
+    this.carregarDadosEdicao();
+  }
+
+  carregarDadosEdicao() {
+    this.idCartaoEdicao = this.rotaAtiva.snapshot.queryParamMap.get('id') ?? null;
+
+    if (!this.idCartaoEdicao) {
+      return;
+    }
+
+    this.service.obterPorId(this.idCartaoEdicao).subscribe({
+      next: (cartao) => {
+        this.form.patchValue({
+          nome: cartao.nome,
+          bandeira: cartao.bandeira,
+        });
+      },
+      error: () => this.toast.error('Erro ao carregar dados do cartão'),
     });
   }
 
@@ -46,15 +71,26 @@ export class CadastroCartao implements OnInit {
     }
 
     const dadosCartao: DadosCartaoForm = this.form.value as DadosCartaoForm;
-    this.service.criarCartao(dadosCartao).subscribe({
-      next: (response: DetalhesCartao) => {
-        console.log('resposta: ', response)
+
+    const requisicao: Observable<DetalhesCartao | void> = this.idCartaoEdicao
+      ? this.service.atualizarCartao(this.idCartaoEdicao, dadosCartao)
+      : this.service.criarCartao(dadosCartao);
+
+    requisicao.subscribe({
+      next: (response) => {
         this.toast.success('Cartão cadastrado/atualizado com sucesso!');
+        this.form.reset();
+        this.idCartaoEdicao = null;
       },
       error: (error: any) => {
-        this.onApiError(error)
-      }
+        this.onApiError(error);
+      },
     });
+  }
+
+  cancelar() {
+    this.form.reset();
+    this.router.navigate(['/lista-cartoes']);
   }
 
   private aplicarErrorValidacao(error: ValidationErrorResponse) {

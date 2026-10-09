@@ -29,9 +29,13 @@ public class CartaoEntity {
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
 
+    @Column(name = "ativo", nullable = false, columnDefinition = "boolean default true")
+    private boolean ativo;
+
     @PrePersist
     public void prePersist(){
         dataCriacao = LocalDateTime.now();
+        ativo = true;
     }
 
 }

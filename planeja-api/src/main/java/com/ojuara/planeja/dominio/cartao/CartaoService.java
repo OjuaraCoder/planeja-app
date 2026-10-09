@@ -45,7 +45,7 @@ public class CartaoService {
 
         CartaoEntity cartao = cartaoMapper.toEntity(form);
         cartaoRepository.save(cartao);
-        return cartaoMapper.toDetalhe(cartao);
+        return cartaoMapper.toDetalheDto(cartao);
 
     }
 
@@ -58,7 +58,7 @@ public class CartaoService {
      */
     public CartaoDetalheDto obterDetalhe(UUID id){
         return cartaoRepository.findById(id)
-                .map(cartaoMapper::toDetalhe)
+                .map(cartaoMapper::toDetalheDto)
                 .orElseThrow(RegistroNaoEncontradoException::new);
     }
 
@@ -103,6 +103,15 @@ public class CartaoService {
     public Page<CartaoDetalheDto> listarCartoes(PageRequest pageRequest){
         return cartaoRepository
                 .findAll(pageRequest)
-                .map(cartaoMapper::toDetalhe);
+                .map(cartaoMapper::toDetalheDto);
+    }
+
+    @Transactional
+    public void mudarStatus(UUID id){
+        var entity = cartaoRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
+        entity.setAtivo(!entity.isAtivo());
+
+        //opcional
+        cartaoRepository.save(entity);
     }
 }
