@@ -1,0 +1,37 @@
+<!-- Header -->
+<app-header [titulo]="'Cadastro de Categorias'"></app-header>
+
+<main class="content">
+  <div class="card">
+    <h2>{{ idCategoriaEdicao ? 'Editar Categoria' : 'Nova Categoria' }}</h2>
+
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form">
+      <div class="form-group">
+        <label for="nome"> Nome da Categoria: * </label>
+        <input type="text" formControlName="nome" id="nome" name="nome" placeholder="Ex: Alimentação"/>
+
+        @if (form.controls.nome.hasError('required') && form.controls.nome.touched){
+          <span class="form-hint form-hint-error">O nome da categoria é obrigatório.</span>
+        }
+
+        @if (form.controls.nome.hasError('apiError') && form.controls.nome.touched){
+          <span class="form-hint form-hint-error">
+            {{ form.get('nome')?.errors?.['apiError'] }}
+          </span>
+        }
+
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">{{idCategoriaEdicao ? 'Atualizar' : 'Cadastrar'}}</button>
+        <button type="button"
+                class="btn-secondary"
+                (click)="cancelar()">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</main>

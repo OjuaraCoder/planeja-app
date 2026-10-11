@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CartaoService } from '../../cartao-service';
 import { PageResult } from '../../../common/pagination/page-result';
-import { DetalhesCartao } from '../../dados-cartao';
+import { DetalhesCartao } from '../../cartao-dados';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';

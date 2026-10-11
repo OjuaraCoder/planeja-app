@@ -7,10 +7,12 @@ import com.ojuara.planeja.dominio.categoria.dto.CategoriaDetalheDto;
 import com.ojuara.planeja.dominio.categoria.dto.CategoriaFormDto;
 import com.ojuara.planeja.dominio.categoria.mapper.CategoriaMapper;
 import com.ojuara.planeja.dominio.categoria.model.CategoriaEntity;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CategoriaService {
@@ -59,5 +61,16 @@ public class CategoriaService {
                 .map(categoriaMapper::toDetalheDto)
                 .orElseThrow(RegistroNaoEncontradoException::new);
 
+    }
+
+    @Transactional
+    public void atualizarCategoria(Long id, @Valid CategoriaFormDto categoriaAtualizada) {
+        CategoriaEntity categoria = categoriaRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
+        var result = validator.validar(categoriaAtualizada, null);
+        if(result.isInvalido()){
+            throw new ValidationException(result.getCamposInvalidos());
+        }
+
+        categoriaMapper.update(categoria, categoriaAtualizada);
     }
 }
