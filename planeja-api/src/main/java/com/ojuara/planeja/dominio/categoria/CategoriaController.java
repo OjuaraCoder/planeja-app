@@ -42,14 +42,14 @@ public class CategoriaController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Void> atualizarCategoria(@RequestParam Long id, @Valid @RequestBody CategoriaFormDto categoriaAtualizada) {
+    public ResponseEntity<Void> atualizarCategoria(@PathVariable Long id, @Valid @RequestBody CategoriaFormDto categoriaAtualizada) {
         service.atualizarCategoria(id,categoriaAtualizada);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<Void> mudarStatusCategoria(@PathVariable Long id, @RequestParam boolean ativo) {
-        service.mudarStatusCategoria(id, ativo);
+    public ResponseEntity<Void> mudarStatusCategoria(@PathVariable Long id) {
+        service.mudarStatusCategoria(id);
         return ResponseEntity.noContent().build();
     }
 

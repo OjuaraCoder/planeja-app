@@ -48,11 +48,9 @@ public class CategoriaService {
                 .map(categoriaMapper::toDetalheDto);
     }
 
-    public void mudarStatusCategoria(Long id, boolean ativo) {
-        CategoriaEntity categoria = categoriaRepository.findById(id)
-                .orElseThrow(RegistroNaoEncontradoException::new);
-
-        categoria.setAtivo(ativo);
+    public void mudarStatusCategoria(Long id) {
+        CategoriaEntity categoria = categoriaRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
+        categoria.setAtivo(!categoria.isAtivo());
         categoriaRepository.save(categoria);
     }
 
