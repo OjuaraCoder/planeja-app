@@ -7,12 +7,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Repositório para gerenciar entidades de cartão.
  */
-public interface CartaoRepository extends JpaRepository<CartaoEntity, UUID> {
+public interface CartaoRepository extends JpaRepository<CartaoEntity, Long> {
 
     /**
      * Busca um cartão pelo nome.
@@ -36,5 +35,5 @@ public interface CartaoRepository extends JpaRepository<CartaoEntity, UUID> {
            where ( :id is null or c.id != :id )
              and c.nome =:nome 
     """)
-    List<CartaoEntity> findByNomeandId(@Param("nome") String nome, @Param("id") UUID id);
+    List<CartaoEntity> findByNomeandId(@Param("nome") String nome, @Param("id") Long id);
 }

@@ -1,6 +1,6 @@
 package com.ojuara.planeja.dominio.cartao.dto;
 
-import com.ojuara.planeja.dominio.cartao.enums.BandeiraCartaoEnum;
+import com.ojuara.planeja.dominio.cartao.model.BandeiraCartaoEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

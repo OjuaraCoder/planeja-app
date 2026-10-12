@@ -17,7 +17,7 @@ public class CartaoValidator {
     /**
      *
      */
-    public ValidationResult validar(CartaoFormDto cartaoFormDto, UUID idCartao) {
+    public ValidationResult validar(CartaoFormDto cartaoFormDto, Long idCartao) {
         var result = ValidationResult.novo();
 
         if(!repository.findByNomeandId(cartaoFormDto.nome(), idCartao).isEmpty()) {

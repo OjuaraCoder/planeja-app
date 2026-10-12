@@ -5,7 +5,7 @@ import com.ojuara.planeja.common.exceptions.ValidationException;
 import com.ojuara.planeja.common.validation.ValidationResult;
 import com.ojuara.planeja.dominio.categoria.dto.CategoriaDetalheDto;
 import com.ojuara.planeja.dominio.categoria.dto.CategoriaFormDto;
-import com.ojuara.planeja.dominio.categoria.mapper.CategoriaMapper;
+import com.ojuara.planeja.dominio.categoria.model.CategoriaMapper;
 import com.ojuara.planeja.dominio.categoria.model.CategoriaEntity;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

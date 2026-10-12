@@ -5,17 +5,15 @@ import com.ojuara.planeja.common.exceptions.ValidationException;
 import com.ojuara.planeja.common.exceptions.RegistroNaoEncontradoException;
 import com.ojuara.planeja.dominio.cartao.dto.CartaoDetalheDto;
 import com.ojuara.planeja.dominio.cartao.dto.CartaoFormDto;
-import com.ojuara.planeja.dominio.cartao.mapper.CartaoMapper;
+import com.ojuara.planeja.dominio.cartao.model.CartaoMapper;
 import com.ojuara.planeja.dominio.cartao.model.CartaoEntity;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
 
 @Service
 public class CartaoService {
@@ -56,7 +54,7 @@ public class CartaoService {
      * @return detalhes do cartão encontrado
      * @throws RegistroNaoEncontradoException quando não existe cartão com o identificador informado
      */
-    public CartaoDetalheDto obterDetalhe(UUID id){
+    public CartaoDetalheDto obterDetalhe(Long id){
         return cartaoRepository.findById(id)
                 .map(cartaoMapper::toDetalheDto)
                 .orElseThrow(RegistroNaoEncontradoException::new);
@@ -71,7 +69,7 @@ public class CartaoService {
      * @throws ValidationException quando os dados de atualização são inválidos
      */
     @Transactional
-    public void atualizarCartao(UUID id, @Valid CartaoFormDto formAtualizacao) {
+    public void atualizarCartao(Long id, @Valid CartaoFormDto formAtualizacao) {
         var entity = cartaoRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
         var result = cartaoValidator.validar(formAtualizacao, id);
 
@@ -89,7 +87,7 @@ public class CartaoService {
      * @param id identificador do cartão a remover
      * @throws RegistroNaoEncontradoException quando não existe cartão com o identificador informado
      */
-    public void removerCartao(UUID id) {
+    public void removerCartao(Long id) {
         var entity = cartaoRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
         cartaoRepository.delete(entity);
     }
@@ -107,7 +105,7 @@ public class CartaoService {
     }
 
     @Transactional
-    public void mudarStatus(UUID id){
+    public void mudarStatus(Long id){
         var entity = cartaoRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
         entity.setAtivo(!entity.isAtivo());
 
