@@ -90,7 +90,7 @@ export class CadastroCartao implements OnInit {
 
   cancelar() {
     this.form.reset();
-    this.router.navigate(['/lista-cartoes']);
+    this.router.navigate(['/listar-cartoes']);
   }
 
   private aplicarErrorValidacao(error: ValidationErrorResponse) {
