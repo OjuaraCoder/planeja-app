@@ -34,18 +34,34 @@ public class LancamentoController {
 //        return ResponseEntity.status(HttpStatus.CREATED).body(detalhes);
 //    }
 
+    /**
+     * Cria um lançamento com os dados informados.
+     *
+     * @param dto dados do lançamento a ser criado
+     * @return dados do lançamento criado
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public LancamentoDetalheDto criarAlternativo(@RequestBody @Valid LancamentoFormDto dto){
         return service.criar(dto);
     }
 
+    /**
+     * Lista as categorias ativas disponíveis para um lançamento.
+     *
+     * @return lista de categorias ativas
+     */
     @GetMapping("categorias-ativas")
     @ResponseStatus(HttpStatus.OK)
     public List<CategoriaDetalheDto> listarCartegoriasAtivas(){
         return categoriaService.listarCategoriasAtivas();
     }
 
+    /**
+     * Lista os cartões ativos disponíveis para um lançamento.
+     *
+     * @return lista de cartões ativos
+     */
     @GetMapping("cartoes-ativos")
     @ResponseStatus(HttpStatus.OK)
     public List<CartaoDetalheDto> listarCartoesAtivos(){

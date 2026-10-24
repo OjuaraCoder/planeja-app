@@ -24,9 +24,10 @@ public class CartaoController {
     private CartaoService service;
 
     /**
-     * Método utilizado para criar um cartão
-     * @param form
-     * @return
+     * Cria um cartão com os dados informados.
+     *
+     * @param form dados do cartão a ser criado
+     * @return resposta com os dados do cartão criado e status HTTP 201
      */
     @PostMapping
     public ResponseEntity<CartaoDetalheDto> criar(@RequestBody @Valid CartaoFormDto form) {
@@ -35,9 +36,10 @@ public class CartaoController {
     }
 
     /**
-     * Método utilizado para obter o detalhe de um cartão
-     * @param id
-     * @return
+     * Busca os detalhes de um cartão pelo identificador.
+     *
+     * @param id identificador do cartão
+     * @return resposta com os dados do cartão encontrado
      */
     @GetMapping("{id}")
     public ResponseEntity<CartaoDetalheDto> obterDetalhe(@PathVariable("id") Long id){
@@ -46,10 +48,11 @@ public class CartaoController {
     }
 
     /**
-     * Método utilizado para listar todos os cartões de forma paginada
-     * @param page
-     * @param size
-     * @return Página de detalhes dos cartões
+     * Lista os cartões de forma paginada.
+     *
+     * @param page número da página, começando em zero
+     * @param size quantidade de cartões por página
+     * @return página com os dados dos cartões
      */
     @GetMapping
     public Page<CartaoDetalheDto> listar(
@@ -62,10 +65,11 @@ public class CartaoController {
 
 
     /**
-     * Método utilizado para atualizar um cartão
-     * @param id
-     * @param formAtualizacao
-     * @return
+     * Atualiza os dados de um cartão existente.
+     *
+     * @param id identificador do cartão a ser atualizado
+     * @param formAtualizacao novos dados do cartão
+     * @return resposta sem conteúdo, com status HTTP 204
      */
     @PutMapping("{id}")
     public ResponseEntity<Void> atualizarCartao(@PathVariable("id") Long id, @RequestBody @Valid CartaoFormDto formAtualizacao){
@@ -74,9 +78,10 @@ public class CartaoController {
     }
 
     /**
-     * Método utilizado para remover um cartão
-     * @param id
-     * @return
+     * Remove um cartão pelo identificador.
+     *
+     * @param id identificador do cartão a ser removido
+     * @return resposta sem conteúdo, com status HTTP 204
      */
     @DeleteMapping("{id}")
     public ResponseEntity<Void> removerCartao(@PathVariable Long id){
@@ -85,6 +90,12 @@ public class CartaoController {
 
     }
 
+    /**
+     * Alterna o status de um cartão entre ativo e inativo.
+     *
+     * @param id identificador do cartão
+     * @return resposta sem conteúdo, com status HTTP 204
+     */
     @PatchMapping("{id}/status")
     public ResponseEntity<Void> mudarStatus(@PathVariable Long id){
         service.mudarStatus(id);
