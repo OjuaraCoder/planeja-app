@@ -1,6 +1,6 @@
 package com.ojuara.planeja.dominio.cartao.dto;
 
-import com.ojuara.planeja.dominio.cartao.enums.BandeiraCartaoEnum;
+import com.ojuara.planeja.dominio.cartao.model.BandeiraCartaoEnum;
 
 import java.time.LocalDateTime;
 

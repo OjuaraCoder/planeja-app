@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "categoria")
-@Getter
-@Setter
+@Getter @Setter
 public class CategoriaEntity {
 
     @Id
@@ -20,7 +19,7 @@ public class CategoriaEntity {
     @Column(name = "nome", nullable = false, length = 70)
     private String nome;
 
-    @Column(name = "ativo", nullable = false, columnDefinition = "boolean default true")
+    @Column(name = "bol_ativo", nullable = false, columnDefinition = "boolean default true")
     private boolean ativo;
 
     @Column(name = "data_criacao")

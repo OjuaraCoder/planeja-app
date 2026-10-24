@@ -5,12 +5,16 @@ import com.ojuara.planeja.common.exceptions.ValidationException;
 import com.ojuara.planeja.common.validation.ValidationResult;
 import com.ojuara.planeja.dominio.categoria.dto.CategoriaDetalheDto;
 import com.ojuara.planeja.dominio.categoria.dto.CategoriaFormDto;
-import com.ojuara.planeja.dominio.categoria.mapper.CategoriaMapper;
+import com.ojuara.planeja.dominio.categoria.model.CategoriaMapper;
 import com.ojuara.planeja.dominio.categoria.model.CategoriaEntity;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class CategoriaService {
@@ -46,11 +50,9 @@ public class CategoriaService {
                 .map(categoriaMapper::toDetalheDto);
     }
 
-    public void mudarStatusCategoria(Long id, boolean ativo) {
-        CategoriaEntity categoria = categoriaRepository.findById(id)
-                .orElseThrow(RegistroNaoEncontradoException::new);
-
-        categoria.setAtivo(ativo);
+    public void mudarStatusCategoria(Long id) {
+        CategoriaEntity categoria = categoriaRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
+        categoria.setAtivo(!categoria.isAtivo());
         categoriaRepository.save(categoria);
     }
 
@@ -59,5 +61,22 @@ public class CategoriaService {
                 .map(categoriaMapper::toDetalheDto)
                 .orElseThrow(RegistroNaoEncontradoException::new);
 
+    }
+
+    @Transactional
+    public void atualizarCategoria(Long id, @Valid CategoriaFormDto categoriaAtualizada) {
+        CategoriaEntity categoria = categoriaRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
+        var result = validator.validar(categoriaAtualizada, null);
+        if(result.isInvalido()){
+            throw new ValidationException(result.getCamposInvalidos());
+        }
+
+        categoriaMapper.update(categoria, categoriaAtualizada);
+    }
+
+    public List<CategoriaDetalheDto> listarCategoriasAtivas() {
+        return categoriaRepository.findByAtivoTrue()
+                .stream()
+                .map(categoriaMapper::toDetalheDto).toList();
     }
 }

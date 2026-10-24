@@ -1,9 +1,7 @@
-package com.ojuara.planeja.dominio.cartao.mapper;
+package com.ojuara.planeja.dominio.cartao.model;
 
 import com.ojuara.planeja.dominio.cartao.dto.CartaoDetalheDto;
 import com.ojuara.planeja.dominio.cartao.dto.CartaoFormDto;
-import com.ojuara.planeja.dominio.cartao.model.CartaoEntity;
-import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

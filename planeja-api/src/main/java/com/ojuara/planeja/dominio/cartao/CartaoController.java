@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 
 /**
  * Controlador REST para gerenciar cartões.
@@ -41,7 +40,7 @@ public class CartaoController {
      * @return
      */
     @GetMapping("{id}")
-    public ResponseEntity<CartaoDetalheDto> obterDetalhe(@PathVariable("id") UUID id){
+    public ResponseEntity<CartaoDetalheDto> obterDetalhe(@PathVariable("id") Long id){
         var result = service.obterDetalhe(id);
         return ResponseEntity.ok(result);
     }
@@ -69,7 +68,7 @@ public class CartaoController {
      * @return
      */
     @PutMapping("{id}")
-    public ResponseEntity<Void> atualizarCartao(@PathVariable("id") UUID id, @RequestBody @Valid CartaoFormDto formAtualizacao){
+    public ResponseEntity<Void> atualizarCartao(@PathVariable("id") Long id, @RequestBody @Valid CartaoFormDto formAtualizacao){
         service.atualizarCartao(id, formAtualizacao);
         return ResponseEntity.noContent().build();
     }
@@ -80,14 +79,14 @@ public class CartaoController {
      * @return
      */
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> removerCartao(@PathVariable UUID id){
+    public ResponseEntity<Void> removerCartao(@PathVariable Long id){
         service.removerCartao(id);
         return ResponseEntity.noContent().build();
 
     }
 
     @PatchMapping("{id}/status")
-    public ResponseEntity<Void> mudarStatus(@PathVariable UUID id){
+    public ResponseEntity<Void> mudarStatus(@PathVariable Long id){
         service.mudarStatus(id);
         return ResponseEntity.noContent().build();
     }

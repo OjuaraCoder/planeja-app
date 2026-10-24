@@ -1,23 +1,20 @@
 package com.ojuara.planeja.dominio.cartao.model;
 
-import com.ojuara.planeja.dominio.cartao.enums.BandeiraCartaoEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "cartao")
-@Getter
-@Setter
+@Getter @Setter
 public class CartaoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private UUID id;
+    private Long id;
 
     @Column(name = "nome", nullable = false, length = 50)
     private String nome;
@@ -29,13 +26,13 @@ public class CartaoEntity {
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
 
-    @Column(name = "ativo", nullable = false, columnDefinition = "boolean default true")
+    @Column(name = "bol_ativo", nullable = false)
     private boolean ativo;
 
     @PrePersist
     public void prePersist(){
-        dataCriacao = LocalDateTime.now();
         ativo = true;
+        dataCriacao = LocalDateTime.now();
     }
 
 }

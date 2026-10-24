@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DadosCartaoForm, DetalhesCartao } from './dados-cartao';
+import { DadosCartaoForm, DetalhesCartao } from './cartao-dados';
 import { Observable } from 'rxjs';
 import { PageResult } from '../common/pagination/page-result';
 

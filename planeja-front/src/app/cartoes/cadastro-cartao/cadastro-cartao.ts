@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CartaoService } from '../cartao-service';
-import { DadosCartaoForm, DetalhesCartao } from '../dados-cartao';
+import { DadosCartaoForm, DetalhesCartao } from '../cartao-dados';
 import { ValidationErrorResponse } from '../../common/validation/validation-error-model';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -90,7 +90,7 @@ export class CadastroCartao implements OnInit {
 
   cancelar() {
     this.form.reset();
-    this.router.navigate(['/lista-cartoes']);
+    this.router.navigate(['/listar-cartoes']);
   }
 
   private aplicarErrorValidacao(error: ValidationErrorResponse) {

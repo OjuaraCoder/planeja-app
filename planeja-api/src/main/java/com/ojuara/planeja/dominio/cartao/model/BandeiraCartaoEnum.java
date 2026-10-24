@@ -1,4 +1,4 @@
-package com.ojuara.planeja.dominio.cartao.enums;
+package com.ojuara.planeja.dominio.cartao.model;
 
 public enum BandeiraCartaoEnum {
 
