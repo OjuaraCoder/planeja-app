@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "cartao")
-@Getter
-@Setter
+@Getter @Setter
 public class CartaoEntity {
 
     @Id
@@ -27,11 +26,12 @@ public class CartaoEntity {
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
 
-    @Column(name = "bol_ativo", nullable = false, columnDefinition = "boolean default true")
+    @Column(name = "bol_ativo", nullable = false)
     private boolean ativo;
 
     @PrePersist
     public void prePersist(){
+        ativo = true;
         dataCriacao = LocalDateTime.now();
     }
 

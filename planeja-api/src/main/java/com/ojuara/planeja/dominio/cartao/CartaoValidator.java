@@ -15,7 +15,7 @@ public class CartaoValidator {
     private CartaoRepository repository;
 
     /**
-     *
+     * Método responsável por
      */
     public ValidationResult validar(CartaoFormDto cartaoFormDto, Long idCartao) {
         var result = ValidationResult.novo();

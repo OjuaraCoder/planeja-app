@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class CategoriaService {
 
@@ -70,5 +72,11 @@ public class CategoriaService {
         }
 
         categoriaMapper.update(categoria, categoriaAtualizada);
+    }
+
+    public List<CategoriaDetalheDto> listarCategoriasAtivas() {
+        return categoriaRepository.findByAtivoTrue()
+                .stream()
+                .map(categoriaMapper::toDetalheDto).toList();
     }
 }

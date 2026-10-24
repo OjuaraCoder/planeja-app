@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,4 +37,6 @@ public interface CartaoRepository extends JpaRepository<CartaoEntity, Long> {
              and c.nome =:nome 
     """)
     List<CartaoEntity> findByNomeandId(@Param("nome") String nome, @Param("id") Long id);
+
+    Collection<CartaoEntity> findByAtivoTrue();
 }

@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "categoria")
-@Getter
-@Setter
+@Getter @Setter
 public class CategoriaEntity {
 
     @Id
