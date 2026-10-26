@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { DadosLancamentoForm, DetalhesLancamento } from './lancamento-dados';
 import { Observable } from 'rxjs';
 import { DetalhesCategoria } from '../categoria/categoria-dados';
+import { DetalhesCartao } from '../cartoes/cartao-dados';
 
 
 @Injectable({
@@ -20,7 +21,7 @@ export class LancamentoService {
     return this.http.get<DetalhesCategoria[]>(`${this.baseURL}/categorias-ativas`);
   }
 
-  listarCartoesDisponiveis(): Observable<DetalhesCategoria[]> {
-    return this.http.get<DetalhesCategoria[]>(`${this.baseURL}/cartoes-ativos`);
+  listarCartoesDisponiveis(): Observable<DetalhesCartao[]> {
+    return this.http.get<DetalhesCartao[]>(`${this.baseURL}/cartoes-ativos`);
   }
 }
