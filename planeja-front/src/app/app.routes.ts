@@ -4,6 +4,7 @@ import { CadastroCartao } from './cartoes/cadastro-cartao/cadastro-cartao';
 import { ListarCartoes } from './cartoes/listar-cartoes/listar-cartoes/listar-cartoes';
 import { ListarCategorias } from './categoria/listar-categorias/listar-categorias';
 import { CadastroCategorias } from './categoria/cadastro-categoria/cadastro-categorias';
+import { CadastroLancamento } from './lancamento/cadastro-lancamento/cadastro-lancamento';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,10 @@ export const routes: Routes = [
         path: 'cadastro-categoria',
         component: CadastroCategorias,
       },
+      {
+        path: 'cadastro-lancamento',
+        component: CadastroLancamento,
+      }
     ],
   },
 ];

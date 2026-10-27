@@ -3,7 +3,8 @@ export type TipoLancamento = 'RECEITA' | 'DESPESA';
 export class DadosLancamentoForm {
   categoriaId!: number;
   cartaoId!: number | null;
-  valor!: number;
+  descricao!: string;
+  valor!: string;
   dataLancamento!: string;
   tipoLancamento!: TipoLancamento;
 }
@@ -11,12 +12,13 @@ export class DadosLancamentoForm {
 export class DetalhesLancamento {
   id!: string;
   dataLancamento!: string;
-  valor!: number;
+  valor!: string;
   tipoLancamento!: TipoLancamento;
   categoriaId!: number;
   categoriaNome!: string;
   cartaoId?: number | null;
   cartaoNome?: string;
+  descricao?: string;
 }
 
 export class FiltroLancamento {

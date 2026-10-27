@@ -13,6 +13,7 @@ public record LancamentoDetalheDto (
         Long categoriaId,
         String categoriaNome,
         Long cartaoId,
-        String cartaoNome
+        String cartaoNome,
+        String descricao
 ) {
 }
