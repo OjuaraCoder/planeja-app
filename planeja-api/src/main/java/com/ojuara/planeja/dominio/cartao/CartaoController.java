@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/cartoes")
-@CrossOrigin("*")
 public class CartaoController {
 
     @Autowired

@@ -31,6 +31,7 @@ export class CadastroLancamento implements OnInit {
 
   toast = inject(ToastrService);
   service = inject(LancamentoService);
+
   categoriasAtivas: DetalhesCategoria[] = [];
   cartoesAtivos: DetalhesCartao[] = [];
 
