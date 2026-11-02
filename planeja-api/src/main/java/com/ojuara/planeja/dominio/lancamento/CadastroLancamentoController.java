@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/lancamentos")
-public class LancamentoController {
+public class CadastroLancamentoController {
 
     @Autowired
     private LancamentoService service;

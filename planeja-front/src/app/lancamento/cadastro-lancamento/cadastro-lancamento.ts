@@ -4,7 +4,7 @@ import { DadosLancamentoForm, TipoLancamento } from '../lancamento-dados';
 import { ToastrService } from 'ngx-toastr';
 import { LancamentoService } from '../lancamento-service';
 import { DetalhesCategoria } from '../../categoria/categoria-dados';
-import { DadosCartaoForm, DetalhesCartao } from '../../cartoes/cartao-dados';
+import { DetalhesCartao } from '../../cartoes/cartao-dados';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Header } from '../../common/components/header/header';

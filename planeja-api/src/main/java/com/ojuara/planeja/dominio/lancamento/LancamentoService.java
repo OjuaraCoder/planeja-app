@@ -9,8 +9,14 @@ import com.ojuara.planeja.dominio.lancamento.dto.LancamentoDetalheDto;
 import com.ojuara.planeja.dominio.lancamento.dto.LancamentoFormDto;
 import com.ojuara.planeja.dominio.lancamento.model.LancamentoEntity;
 import com.ojuara.planeja.dominio.lancamento.model.LancamentoMapper;
+import com.ojuara.planeja.dominio.lancamento.model.TipoLancamentoEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.time.YearMonth;
 
 @Service
 public class LancamentoService {
@@ -54,5 +60,32 @@ public class LancamentoService {
         return lancamentoMapper.toDetalheDto(entity);
     }
 
+    public Page<LancamentoDetalheDto> listar(
+            PageRequest pageRequest,
+            YearMonth mes,
+            TipoLancamentoEnum tipoEnum,
+            Long categoriaId){
+
+        // select * from Lancamento where 1 = 1
+        Specification<LancamentoEntity> spec = Specification.unrestricted();
+
+        if(tipoEnum != null){
+            //and tipo =:tipo
+            spec = spec.and(LancamentoSpecs.tipoEqual(tipoEnum));
+        }
+
+        if(mes != null){
+            //and mes =:mes
+            spec = spec.and(LancamentoSpecs.mesEqual(mes));
+        }
+
+        if(categoriaId != null){
+            //and categoriaId =:categoriaId
+            spec = spec.and(LancamentoSpecs.categoriaEqual(categoriaId));
+        }
+
+        var result = lancamentoRepository.findAll(spec, pageRequest);
+        return result.map(lancamentoMapper::toDetalheDto);
+    }
 
 }
