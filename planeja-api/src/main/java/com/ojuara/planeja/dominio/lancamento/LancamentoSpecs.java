@@ -29,6 +29,14 @@ public class LancamentoSpecs {
         };
     }
 
+    public static Specification<LancamentoEntity> cartaoEqual(Long cartaoId) {
+        return (root, query, cb) -> {
+
+            //LancamentoEntity.cartao.id = :cartaoId
+            return cb.equal(root.get("cartao").get("id"), cartaoId);
+        };
+    }
+
     public static Specification<LancamentoEntity> mesEqual(YearMonth mes) {
         return (root, query, cb) -> {
 

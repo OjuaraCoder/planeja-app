@@ -64,7 +64,8 @@ public class LancamentoService {
             PageRequest pageRequest,
             YearMonth mes,
             TipoLancamentoEnum tipoEnum,
-            Long categoriaId){
+            Long categoriaId,
+            Long cartaoId){
 
         // select * from Lancamento where 1 = 1
         Specification<LancamentoEntity> spec = Specification.unrestricted();
@@ -82,6 +83,10 @@ public class LancamentoService {
         if(categoriaId != null){
             //and categoriaId =:categoriaId
             spec = spec.and(LancamentoSpecs.categoriaEqual(categoriaId));
+        }
+
+        if(cartaoId != null){
+            spec = spec.and(LancamentoSpecs.cartaoEqual(cartaoId));
         }
 
         var result = lancamentoRepository.findAll(spec, pageRequest);

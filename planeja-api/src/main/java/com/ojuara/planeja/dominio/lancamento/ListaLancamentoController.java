@@ -27,13 +27,14 @@ public class ListaLancamentoController {
                                                @RequestParam(value="size", required = false, defaultValue = "15") int size,
                                                @RequestParam(value="mes", required = false) String mes,
                                                @RequestParam(value="tipoLancamento", required = false) String tipoLancamento,
-                                               @RequestParam(value="categoria-id", required = false) Long categoriaId){
+                                               @RequestParam(value="categoria-id", required = false) Long categoriaId,
+                                               @RequestParam(value="cartao-id", required = false) Long cartaoId){
 
         var pageRequest = PageRequest.of(page,size);
         var mesAno = parseMes(mes);
         var tipoLancamentoSelecionado = parseTipo(tipoLancamento);
 
-        return service.listar(pageRequest, mesAno, tipoLancamentoSelecionado, categoriaId);
+        return service.listar(pageRequest, mesAno, tipoLancamentoSelecionado, categoriaId, cartaoId);
     }
 
     private TipoLancamentoEnum parseTipo(String tipoLancamento){
@@ -52,7 +53,6 @@ public class ListaLancamentoController {
         if(mes == null || mes.isBlank()){
             return null;
         }
-
         try{
             return YearMonth.parse(mes);
         }catch (DateTimeParseException e){
