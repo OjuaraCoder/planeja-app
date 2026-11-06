@@ -26,4 +26,6 @@ export class FiltroLancamento {
   categoriaId?: number;
   cartaoId?: number;
   tipoLancamento?: TipoLancamento;
+  page?: number;
+  size?: number;
 }
