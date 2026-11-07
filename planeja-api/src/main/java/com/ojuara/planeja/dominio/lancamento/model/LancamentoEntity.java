@@ -25,10 +25,13 @@ public class LancamentoEntity {
     private CategoriaEntity categoria;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cartao_id", nullable = false)
+    @JoinColumn(name = "cartao_id")
     private CartaoEntity cartao;
 
-    @Column(nullable = false,name = "desc_lancamento")
+    @Column(nullable = false,name = "desc_descricao")
+    private String descricao;
+
+    @Column(nullable = false,name = "tipo_lancamento")
     @Enumerated(EnumType.STRING)
     private TipoLancamentoEnum tipoLancamento;
 

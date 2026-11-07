@@ -3,6 +3,7 @@ package com.ojuara.planeja.dominio.lancamento.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ojuara.planeja.dominio.lancamento.model.TipoLancamentoEnum;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -14,9 +15,14 @@ public record LancamentoFormDto(
 
         Long cartaoId,
 
+        @NotBlank(message = "Campo descrição é obrigatório")
+        String descricao,
+
         @NotNull(message = "Campo tipo de Lançamento é obrigatório")
         TipoLancamentoEnum tipoLancamento,
 
+        @NotNull(message = "Campo data é obrigatório")
+        @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate dataLancamento,
 
         @NotNull(message = "Campo valor é obrigatório")

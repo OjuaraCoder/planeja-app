@@ -5,6 +5,109 @@
     <h2>Cadastro de Lançamento</h2>
     <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form">
 
+      <div class="form-group">
+        <label for="tipoLancamento">Tipo: *</label>
+        <select id="tipoLancamento" formControlName="tipoLancamento" (change)="handleTipoChange()" )>
+          <option value="">Selecione...</option>
+          <option value="RECEITA">Receita</option>
+          <option value="DESPESA">Despesa</option>
+        </select>
+        @if(form.controls.tipoLancamento.hasError('required') && form.controls.tipoLancamento.touched){
+          <span class="form-hint form-hint-error">O tipo de despesa é obrigatório</span>
+        }
+        @if(form.controls.tipoLancamento.hasError('apiError') && form.controls.tipoLancamento.touched){
+          <span class="form-hint form-hint-error">
+            {{form.get('tipoLancamento')?.errors?.['apiError']}}
+          </span>
+        }
+
+      </div>
+
+      <div class="form-group">
+        <label for="categoriaId">Categoria: *</label>
+        <select id="categoriaId" formControlName="categoriaId">
+          <option value="">Selecione...</option>
+          @for(categoria of categoriasAtivas; track categoria.id){
+            <option [value]="categoria.id">{{ categoria.nome }}</option>
+          }
+        </select>
+        @if(form.controls.categoriaId.hasError('required') && form.controls.categoriaId.touched){
+          <span class="form-hint form-hint-error">A categoria é obrigatória</span>
+        }
+        @if(form.controls.categoriaId.hasError('apiError') && form.controls.categoriaId.touched){
+          <span class="form-hint form-hint-error">
+            {{form.get('categoriaId')?.errors?.['apiError']}}
+          </span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="descricao">Descrição: *</label>
+        <input type="text" id="descricao" formControlName="descricao">
+        @if(form.controls.descricao.hasError('required') && form.controls.descricao.touched){
+          <span class="form-hint form-hint-error">A Descrição é obrigatória</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="dataLancamento">Data de Lançamento: *</label>
+        <input type="date" id="dataLancamento" formControlName="dataLancamento">
+
+        @if(form.controls.dataLancamento.hasError('required') && form.controls.dataLancamento.touched){
+          <span class="form-hint form-hint-error">A Data de lançamento é obrigatória</span>
+        }
+        @if(form.controls.dataLancamento.hasError('apiError') && form.controls.dataLancamento.touched){
+          <span class="form-hint form-hint-error">
+            {{form.get('dataLancamento')?.errors?.['apiError']}}
+          </span>
+        }
+
+      </div>
+
+      <div class="form-group">
+        <label for="valor">Valor: *</label>
+        <input type="text"
+               id="valor"
+               name="valor"
+               formControlName="valor"
+               mask="separator.2"
+        />
+
+        @if(form.controls.valor.hasError('required') && form.controls.valor.touched){
+          <span class="form-hint form-hint-error">A Valor de lançamento é obrigatória</span>
+        }
+        @if(form.controls.valor.hasError('min') && form.controls.valor.touched){
+          <span class="form-hint form-hint-error">O valor deve ser maior que zero.</span>
+        }
+        @if(form.controls.valor.hasError('apiError') && form.controls.valor.touched){
+          <span class="form-hint form-hint-error">
+            {{form.get('valor')?.errors?.['apiError']}}
+          </span>
+        }
+
+      </div>
+
+      @if(idDespesa()){
+        <div class="form-group">
+          <label for="cartaoId">Cartao: </label>
+          <select id="cartaoId" formControlName="cartaoId">
+            <option value="">Selecione...</option>
+            @for(catao of cartoesAtivos; track catao.id){
+              <option [value]="catao.id">{{ catao.nome }}</option>
+            }
+          </select>
+          @if(form.controls.cartaoId.hasError('apiError') && form.controls.cartaoId.touched){
+            <span class="form-hint form-hint-error">
+              {{form.get('cartaoId')?.errors?.['apiError']}}
+            </span>
+          }
+        </div>
+      }
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Salvar</button>
+        <button type="button" (click)="handleCancel()" class="btn-secondary">Cancelar</button>
+      </div>
+
     </form>
   </div>
 

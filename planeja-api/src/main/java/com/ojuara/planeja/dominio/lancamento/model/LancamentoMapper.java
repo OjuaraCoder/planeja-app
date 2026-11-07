@@ -15,6 +15,9 @@ public interface LancamentoMapper {
     @Mapping(target = "categoria", source = "categoria")
     @Mapping(target = "cartao", source = "cartao")
     @Mapping(target = "valorLancamento", source = "form.valor")
+    @Mapping(target = "descricao", source = "form.descricao")
+    @Mapping(target = "tipoLancamento", source = "form.tipoLancamento")
+    @Mapping(target = "dataLancamento", source = "form.dataLancamento")
     LancamentoEntity toEntity(LancamentoFormDto form, CategoriaEntity categoria, CartaoEntity cartao);
 
 
@@ -24,8 +27,12 @@ public interface LancamentoMapper {
     @Mapping(target="cartaoId", source = "cartao.id")
     @Mapping(target="cartaoNome", source = "cartao.nome")
     @Mapping(target = "valor", source = "valorLancamento")
+    @Mapping(target = "descricao", source = "descricao")
     LancamentoDetalheDto toDetalheDto(LancamentoEntity entity);
 
     @Mapping(target = "valorLancamento", source = "valor")
+    @Mapping(target = "descricao", source = "descricao")
+    @Mapping(target = "tipoLancamento", source = "tipoLancamento")
+    @Mapping(target = "dataLancamento", source = "dataLancamento")
     void update(@MappingTarget LancamentoEntity entity, LancamentoFormDto dadosAtualizacao);
 }
