@@ -57,13 +57,13 @@ export class ListarLancamentos implements OnInit {
       tipoLancamento: tipoLancamento || undefined,
       categoriaId: categoriaId || undefined
     });
-
-
   }
 
   aplicarFiltros(){
     this.paginaAtual = 0;
     this.listarLancamentos();
   }
+
+
 
 }
